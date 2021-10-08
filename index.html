@@ -1,0 +1,23 @@
+---
+layout: default
+title: Data Professional Index
+---
+
+<h2>Information</h2>
+
+<!-- Organizations -->
+{% assign info = site.data.information %} {% assign information = information |
+sort:"Theme" %}
+
+<!-- Document -->
+
+{% for info in information %}
+
+<ul>
+  <li>
+    <strong>{{ info.Theme }}</strong> {{ info.Tidbit }} {{ info.Resource }} {{
+    info.Tag }} {{ info.Date }} {{ info.Location }}
+  </li>
+</ul>
+
+{% endfor %}
