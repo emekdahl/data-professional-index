@@ -1,25 +1,68 @@
----
-layout: default
-title: Data Professional Index
----
+<!DOCTYPE html>
+<html lang="en">
 
-Hello World!
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Data Professional Index</title>
+    <meta name="author" content="Emily Ekdahl">
+    <meta content="Display any CSV file as a searchable, filterable, pretty HTML table">
 
-<h2>Information</h2>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+</head>
 
-<!-- Organizations -->
-{% assign info = site.data.information %} {% assign information = information |
-sort:"Theme" %}
+<body>
+    <div class="container-fluid">
+        <main class="row">
+            <div class="col">
+                <h1>Data Professional Index</h1>
 
-<!-- Document -->
+                <p> This is a collection of useful information I want to remember as a data professional.</a>
+                </p>
 
-{% for info in information %}
+                <div id="table-container"></div>
+            </div>
+        </main>
+        <footer class="row">
+            <div class="col">
+                <hr>
+            </div>
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.csv.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="js/csv_to_html_table.js"></script>
 
-<ul>
-  <li>
-    <strong>{{ info.Theme }}</strong> {{ info.Tidbit }} {{ info.Resource }} {{
-    info.Tag }} {{ info.Date }} {{ info.Location }}
-  </li>
-</ul>
+    <script>
+        function format_link(link) {
+            if (link)
+                return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+            else return "";
+        }
 
-{% endfor %}
+        CsvToHtmlTable.init({
+            csv_path: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQEhIbe5pDSxy_2wCiQQub7LkKsJMQ65NldsIMMKhQ_a5qBFHAF6EoP27AifPfW6xAfeFNmSivK_3u-/pub?output=csv",
+            element: "table-container",
+            allow_download: true,
+            csv_options: {
+                separator: ",",
+                delimiter: '"'
+            },
+            datatables_options: {
+                paging: false
+            },
+            custom_formatting: [
+                [4, format_link]
+            ]
+        });
+    </script>
+</body>
+
+</html>
